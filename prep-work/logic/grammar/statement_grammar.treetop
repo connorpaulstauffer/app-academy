@@ -1,0 +1,64 @@
+grammar StatementGrammar
+
+  rule molecule
+    (((symbol / negated / parens) operator? (symbol / negated / parens)?) / contradiction)
+    {
+      def content
+        if text_value == 'X'
+          return [text_value]
+        else
+          elements.select{ |e| e.text_value != ''}.map{ |e| e.content }
+        end
+      end
+    }
+  end
+
+  rule parens
+    '(' (molecule / symbol / negated) ')'
+    {
+      def content
+        elements[1].content
+      end
+    }
+  end
+
+  rule negated
+    negation (symbol / parens / negated)
+    {
+      def content
+        if (elements[1].text_value.include?('(')) && (elements[1].text_value[0] != '~')
+          return [:~, elements[1].elements[1].content]
+        else
+          return [:~, elements[1].content]
+        end
+      end
+    }
+  end
+
+  rule operator
+    ('&' / 'v' / '->' / '<->')
+    {
+      def content
+        text_value.to_sym
+      end
+    }
+  end
+
+  rule contradiction
+    'X'
+  end
+
+  rule negation
+    '~'
+  end
+
+  rule symbol
+    [A-WYZ]
+    {
+      def content
+        text_value
+      end
+    }
+  end
+
+end

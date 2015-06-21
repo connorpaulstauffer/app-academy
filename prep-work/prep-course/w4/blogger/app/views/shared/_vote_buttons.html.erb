@@ -1,0 +1,34 @@
+<% if this_comment_id %>
+  <% id = "comment_voter_#{this_comment_id}" %>
+
+  <% comment = Comment.find_by(this_comment_id) %>
+
+  <div class="media-left" id="<%= id %>">
+    <%= link_to "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>".html_safe,
+        "/articles/#{comment.article.id}/comments/#{this_comment_id}/upvote",
+        method: :post, remote: true %>
+
+    <span class="upvote_count"><%= upvotes %></span>
+
+    <%= link_to "<span class='glyphicon glyphicon-minus' aria-hidden='true'></span>".html_safe,
+        "/articles/#{comment.article.id}/comments/#{this_comment_id}/downvote",
+        method: :post, remote: true %>
+  </div>
+
+<% else %>
+
+  <% id = "article_voter_#{this_article_id}" %>
+
+  <% article = Article.find_by(this_article_id) %>
+
+  <div class="media-left" id="<%= id %>">
+    <%= link_to "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>".html_safe,
+        "/articles/#{this_article_id}/upvote", method: :post, remote: true %>
+
+    <span class="upvote_count"><%= upvotes %></span>
+
+    <%= link_to "<span class='glyphicon glyphicon-minus' aria-hidden='true'></span>".html_safe,
+        "/articles/#{this_article_id}/downvote", method: :post, remote: true %>
+  </div>
+
+<% end %>

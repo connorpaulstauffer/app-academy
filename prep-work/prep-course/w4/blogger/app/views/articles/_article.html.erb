@@ -1,0 +1,15 @@
+<li class="article">
+  <div class="media">
+    <%= render partial: 'shared/vote_buttons',
+        locals: { this_comment_id: nil, this_article_id: article.id,
+                  upvotes: article.upvotes } %>
+    <div class="media-body article-preview">
+      <h4 class="media-heading">
+        <%= link_to article.title, article_path(article),
+            class: 'article_title', id: "article_#{article.id}" %>
+      </h4>
+      <div><%= "submitted #{time_ago_in_words(article.created_at)} ago" %></div>
+      <div>Tags: <%= render article.tags %></div>
+    </div>
+  </div>
+</li>

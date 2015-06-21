@@ -1,0 +1,6 @@
+host: 'localhost'
+adapter: 'mysql'
+database: 'university'
+username: 'university_user'
+encoding: 'utf8'
+pool: 5

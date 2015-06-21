@@ -1,0 +1,14 @@
+<a data-toggle="collapse" href="#comment_<%= parent_id %>">
+  Reply
+</a>
+<div class= "collapse" id="comment_<%= parent_id %>">
+  <%= form_for [ @article, @comment ] do |f| %>
+    <div><%= hidden_field_tag :parent_id, parent_id %></div>
+    <p>
+      <%= f.text_area :body, rows: 5, cols: 100 %>
+    </p>
+    <p>
+      <%= f.submit 'Submit' %>
+    </p>
+  <% end %>
+</div>

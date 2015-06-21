@@ -1,0 +1,7 @@
+<ul class="articles">
+  <div><%= render @articles %></div>
+</ul>
+
+<% if logged_in? %>
+  <%= link_to "Create a New Article", new_article_path, class: "new_article" %>
+<% end %>
